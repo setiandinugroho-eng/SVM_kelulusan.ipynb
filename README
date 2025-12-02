@@ -1,1 +1,132 @@
+PROYEK MACHINE LEARNING
+Prediksi Kelulusan Mahasiswa Menggunakan Support Vector Machine (SVM)
+1. Identitas Proyek dan Mahasiswa
+Kategori	Detail
+Judul Proyek	Prediksi Kelulusan Mahasiswa Menggunakan Support Vector Machine (SVM)
+Tipe Proyek	Supervised Classification
+
+Nama : Lengkap	Setiandi Dwi Nugroho
+NIM	: 2457201002394
+
+Platform	Google Colab / Jupyter Notebook
+2. Deskripsi Dataset dan Tujuan
+
+Dataset yang digunakan adalah datakelulusanmahasiswa.csv berisi 379 data mahasiswa.
+Tujuan proyek ini adalah membangun model klasifikasi berbasis SVM untuk memprediksi status kelulusan mahasiswa dengan kelas:
+
+0 = TEPAT
+
+1 = TERLAMBAT
+
+Fitur yang Digunakan
+
+Fitur Akademik
+
+IPK
+
+IPS per semester (IPS 1 hingga IPS 8)
+
+Fitur Non-Akademik
+
+Umur
+
+Jenis Kelamin
+
+Status Mahasiswa (Bekerja / Mahasiswa)
+
+Status Nikah
+
+3. Langkah Pengerjaan Proyek
+A. Preprocessing Data
+
+Imputasi Missing Values
+Nilai kosong pada kolom IPK dan IPS_8 diganti menggunakan median masing-masing kolom.
+
+Encoding Fitur Kategorikal
+Semua fitur kategorikal diubah menjadi numerik dengan One-Hot Encoding.
+
+Feature Scaling (Wajib)
+Semua fitur dinormalisasi menggunakan StandardScaler agar SVM bekerja optimal (karena sensitif terhadap skala data).
+
+Train–Test Split
+Dataset dibagi menjadi 80% data latih dan 20% data uji.
+
+B. Training dan Hyperparameter Tuning
+
+Training Awal
+Model awal dilatih menggunakan SVM Linear dan SVM RBF.
+
+Grid Search Hyperparameter Tuning
+
+C ∈ {0.1, 1, 10}
+
+Gamma ∈ {'scale', 0.1, 1}
+
+Kernel ∈ {'linear', 'rbf'}
+
+4. Hasil Evaluasi Model Terbaik
+
+Model terbaik diperoleh menggunakan SVM RBF Kernel setelah proses Grid Search.
+
+Parameter Optimal
+| Parameter      | Nilai |
+| -------------- | ----- |
+| Kernel Terbaik | RBF   |
+| Nilai C        | 10    |
+| Nilai Gamma    | scale |
+
+
+Metrik Kinerja (Data Uji 20%)
+| Metrik                     | Hasil      |
+| -------------------------- | ---------- |
+| Akurasi                    | 92.11% |
+| F1-Score (Kelas TERLAMBAT) | 0.91   |
+
+Confusion Matrix
+| Aktual/Prediksi | TEPAT (0) | TERLAMBAT (1) |
+| --------------- | --------- | ------------- |
+| TEPAT (0)       | 40 (TN)   | 3 (FP)        |
+| TERLAMBAT (1)   | 3 (FN)    | 30 (TP)       |
+
+Interpretasi Hasil
+
+Model SVM RBF mengungguli kernel Linear → menunjukkan bahwa pola data bersifat non-linear.
+
+Fitur paling berpengaruh:
+
+Status Mahasiswa (bekerja) — koefisien ≈ −1.25 → mahasiswa yang bekerja cenderung lulus terlambat.
+
+Umur — koefisien ≈ 0.38 → semakin tua semakin berisiko lulus terlambat.
+
+IPK berperan besar: Mahasiswa dengan IPK di bawah ≈ 3.0 sangat sering diprediksi lulus TERLAMBAT.
+
+5. Cara Menjalankan Notebook dan Deliverables
+A. Cara Menjalankan
+
+Kloning repositori proyek Machine Learning.
+
+Pastikan file datakelulusanmahasiswa.csv berada dalam direktori yang sama dengan SVM_kelulusan.ipynb.
+
+Buka notebook di Google Colab atau Jupyter Notebook.
+
+Jalankan seluruh sel secara berurutan dari awal hingga akhir.
+
+B. Deployment Sederhana
+
+Notebook menyediakan fungsi:
+
+predict_status(...)
+
+
+untuk menguji model secara langsung:
+
+Kasus 1 (Performa Tinggi) → Prediksi: TEPAT
+
+Kasus 2 (Faktor Risiko Tinggi) → Prediksi: TERLAMBAT
+
+C. Deliverables Wajib
+File / Output	Status
+Notebook	SVM_kelulusan.ipynb
+Dataset	datakelulusanmahasiswa.csv
+Dokumentasi	README.md
 
